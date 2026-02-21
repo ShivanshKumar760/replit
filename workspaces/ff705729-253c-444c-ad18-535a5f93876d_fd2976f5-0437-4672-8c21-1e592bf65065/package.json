@@ -1,0 +1,9 @@
+{
+  "name": "ff705729-253c-444c-ad18-535a5f93876d_fd2976f5-0437-4672-8c21-1e592bf65065",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

@@ -1,0 +1,6 @@
+docker run -d --name tempcontainer -v "D:/coding/development/Web Development/100x/100xBackendProject/06.Replit-clone/workspaces/ff705729-253c-444c-ad18-535a5f93876d_fd2976f5-0437-4672-8c21-1e592bf65065:/workspace" -p 3000:3000 mini-replit-node
+fbf8ad230569499fe6d5b3717ad0ed167b068a24cb4268d694fb9ebd48918c2c
+
+
+
+docker run -it -v "D:/coding/development/Web Development/100x/100xBackendProject/06.Replit-clone/workspaces/ff705729-253c-444c-ad18-535a5f93876d_fd2976f5-0437-4672-8c21-1e592bf65065:/workspace" mini-replit-node sh

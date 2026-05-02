@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: replit-api
+  namespace: replit-clone
+  labels:
+    app: replit-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: replit-api
+  template:
+    metadata:
+      labels:
+        app: replit-api
+    spec:
+      serviceAccountName: replit-api-sa
+      containers:
+        - name: api
+          image: replit-api:latest
+          ports:
+            - containerPort: 4000
+          env:
+            - name: PORT
+              value: "4000"
+            - name: POSTGRES_URL
+              valueFrom:
+                secretKeyRef:
+                  name: replit-secrets
+                  key: postgres-url
+            - name: MONGO_URL
+              valueFrom:
+                secretKeyRef:
+                  name: replit-secrets
+                  key: mongo-url
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: replit-secrets
+                  key: jwt-secret
+            - name: WORKSPACE_DIR
+              value: "/workspaces"
+            - name: K8S_NAMESPACE
+              value: "replit-clone"
+            - name: SANDBOX_IMAGE
+              value: "mini-replit-node:latest"
+            - name: SANDBOX_PORT
+              value: "3000"
+            - name: CLUSTER_DOMAIN
+              value: "cluster.local"
+          volumeMounts:
+            - name: workspaces
+              mountPath: /workspaces
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+      volumes:
+        - name: workspaces
+          persistentVolumeClaim:
+            claimName: replit-workspaces

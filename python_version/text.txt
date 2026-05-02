@@ -1,0 +1,17 @@
+"Create a minimalist 'Spring Boot IDE' starter using Spring Boot, Spring Security (JWT), and H2. This is a learning prototype, so focus on a single ProjectController and a DockerService.
+1. Data & Security:
+Set up Spring Security with JWT to protect endpoints.
+Use an H2 In-Memory database to track Project entities (Fields: id, name, ownerId).
+Hardcode a rule: If a user has 2 projects, block the 'Create' request.
+2. File System Logic:
+In the ProjectService, create a method to generate a folder at workspace/{userId}_{projectId}.
+In that folder, generate a basic pom.xml and a HelloController.java file (a 'Hello World' Spring Boot app) using simple String templates.
+3. The 'Run' Command (The Toy Docker Logic):
+Create a runProject(projectId) endpoint.
+In the backend, use Runtime.getRuntime().exec() to run a Docker CLI command.
+The Command: docker run -d -p {randomPort}:8080 -v {absolutePathToFolder}:/app -w /app openjdk:17-slim ./mvnw spring-boot:run
+Return the {randomPort} to the user so they can visit localhost:{randomPort} to see their app.
+4. Code Requirements:
+Give me the DockerService class that handles the exec() calls.
+Give me the ProjectController with createProject and runProject endpoints.
+Provide a simple Dockerfile that the toy app can use as a base (pre-installed with Maven/JDK)."

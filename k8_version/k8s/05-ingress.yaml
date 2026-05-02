@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sandbox-ingress
+  namespace: replit-clone
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: replit-clone.example.com
+      http:
+        paths:
+          - path: /api(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: replit-api-svc
+                port:
+                  number: 4000
+          - path: /sandbox/([^/]+)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: sandbox-svc-$1
+                port:
+                  number: 3000
